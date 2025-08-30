@@ -1,0 +1,95 @@
+
+
+
+
+
+cc_library_static {
+    name: "libSFTest",
+    defaults: ["libSFTest_binary"],
+    srcs: [
+        "MyTestRef.cpp","Timer.cpp",
+    ],
+    header_libs: [
+        //"libscheduler_headers",
+    ],
+	
+    shared_libs: [
+		"libbase",
+        "libbinder",
+        "libcutils",
+        //"libdisplayservicehidl",
+        "libhidlbase",
+        "liblog",
+        "libprocessgroup",
+        "libutils",
+    ],
+	
+    static_libs: [
+        //"libperfetto_client_experimental",
+    ],
+    export_include_dirs: ["include","scheduler"],
+}
+
+
+
+
+cc_binary {
+    name: "SFTest",
+    defaults: ["libSFTest_binary"],
+    srcs: [
+        "MyTestRef.cpp","Timer.cpp",
+    ],
+	local_include_dirs: [".","include","scheduler"],
+	//export_include_dirs: ["include","scheduler"],
+    shared_libs: [
+        
+    ],
+	static_libs: [
+        "libSFTest",
+    ],
+}
+
+
+cc_defaults {
+    name: "libSFTest_binary",
+    defaults: [
+        "sf_defaults",
+        //"libsurfaceflinger_production_defaults",
+    ],
+    cflags: [
+        "-DLOG_TAG=\"SurfaceFlinger\"",
+    ],
+    shared_libs: [
+		"libbase",
+        "libbinder",
+        "libcutils",
+        //"libdisplayservicehidl",
+        "libhidlbase",
+        "liblog",
+        "libprocessgroup",
+        "libutils",
+    ],
+    static_libs: [
+        //"libserviceutils",
+    ],
+    sanitize: {
+        fuzzer: false,
+    },
+}
+
+cc_defaults {
+    name: "sf_defaults",
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+        "-Wformat",
+        "-Wthread-safety",
+        "-Wunused",
+        "-Wunreachable-code",
+        "-Wconversion",
+		"-Wno-unused-parameter",
+    ],
+}
+
+

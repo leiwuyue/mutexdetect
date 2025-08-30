@@ -1,0 +1,63 @@
+
+
+
+cc_defaults {
+    name: "mute_res_detect_defaults",
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+        "-Wformat",
+        "-Wthread-safety",
+        "-Wunused",
+        "-Wunreachable-code",
+        "-Wconversion",
+    ],
+}
+
+
+cc_defaults {
+    name: "libmute_res_detect_defaults",
+    defaults: ["mute_res_detect_defaults"],
+    cflags: [
+        "-DLOG_TAG=\"Scheduler\"",
+        "-DATRACE_TAG=ATRACE_TAG_GRAPHICS",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libutils",
+    ],
+}
+
+
+
+
+cc_library_static {
+    name: "libmute_res_detect_static",
+    defaults: ["libmute_res_detect_defaults"],
+    srcs: [
+        "MyTestRef.cpp","src/Timer.cpp",
+    ],
+    header_libs: [
+        //"libscheduler_headers",
+    ],
+	
+    shared_libs: [
+	"libbase",
+        "libbinder",
+        "libcutils",
+        "libhidlbase",
+        "liblog",
+        "libprocessgroup",
+        "libutils",
+    ],
+	
+    static_libs: [
+        //"libperfetto_client_experimental",
+    ],
+    local_include_dirs: ["include"],
+    export_include_dirs: ["include"],
+}
+
